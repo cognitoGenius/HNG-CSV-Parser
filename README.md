@@ -15,7 +15,8 @@ it also creates a new CSV file named 'final.output.csv'. This new files contains
 4. Enter 'node format.mjs [filename.csv]' on your CLI and wait for the job to be done.
    Time to completion depends on number of entries in source file
    N/B : filename above refers to the name of your csv file.
-   An example entry on the CLI would be 'node format.mjs hng.csv' -- LETTERCASE matters for the filename
+   An example entry on the CLI would be 'node format.mjs hng.csv'
+   LETTERCASE matters for the filename HNG.scv and hng.csv or Hng.csv are not the same. I hope that is clear
 
 Final Notes: THE NEW JSON FILES AND THE OUTPUT CSV ARE GOING TO BE CREATED IN THE DIRECTORY WHERE THIS SCRIPT IS RUN.
 
