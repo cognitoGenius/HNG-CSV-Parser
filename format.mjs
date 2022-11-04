@@ -92,7 +92,7 @@ const csvParser = async function () {
         })
 
         //Creates final CSV
-        writeFile('./filename.output.csv', splitCSV.join('\r\n'), 'utf-8', () => {
+        writeFile('./final.output.csv', splitCSV.join('\r\n'), 'utf-8', () => {
             console.log('Your new CSV and JSON files are ready')
         })
     } catch (err) {
