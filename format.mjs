@@ -9,6 +9,7 @@ import crypto from 'node:crypto'
 
 let fileName = String(process.argv[2])
 
+
 const csvParser = async function () {
     try {
         if (!fileName) {
@@ -16,15 +17,27 @@ const csvParser = async function () {
             console.log('Ensure you run this file in the directory containing your CSV')
             return
         }
+
+
         //Read the CSV and splits it at new lines into an array, each array contains info from each line
         let readCSVArr = (await readFile(`./${fileName}`, {
             encoding: 'utf-8'
         })).split(/\r?\n/);
 
-
         //Splits the individual arrays at each comman and returns a new better arranged array
         let splitCSV = readCSVArr.map((eachLine) => eachLine.split(','))
-        // console.log(splitCSV)
+
+        //Count the number of entries
+        let count = 0
+        for (let eachNFT of splitCSV) {
+            if (eachNFT[0].includes('TEAM') || !Number(eachNFT[0])) {
+                //Skips counting
+            } else {
+                count++
+            }
+        }
+
+
 
         let jsonFilesArr = splitCSV.forEach((eachNFT, index) => {
             let minter = ''
@@ -46,7 +59,7 @@ const csvParser = async function () {
                     "minting_tool": minter,
                     "sensitive_content": false,
                     "series_number": eachNFT[0],
-                    "series_total": '',
+                    "series_total": count,
                     "attributes": [],
                     "collection": {
                         "name": "Zuri NFT Tickets for Free Lunch",
@@ -72,7 +85,7 @@ const csvParser = async function () {
                 }
                 let hash = crypto.createHash('sha256').update(JSON.stringify(eachNFT)).digest('hex')
                 //Creates json files with metadata for each NFT
-                writeFile(`${each[2]}.json`, JSON.stringify(obj), 'utf-8', () => {})
+                writeFile(`${eachNFT[2]}.json`, JSON.stringify(obj), 'utf-8', () => {})
                 //Includes the generated hash in the array that will be used to construct the final csv
                 eachNFT.push(hash)
             }
@@ -80,7 +93,7 @@ const csvParser = async function () {
 
         //Creates final CSV
         writeFile('./filename.output.csv', splitCSV.join('\r\n'), 'utf-8', () => {
-            console.log('Done with CSV')
+            console.log('Your new CSV and JSON files are ready')
         })
     } catch (err) {
         console.log('Probably an incorrect file name or an incorrectly formatted CSV')
