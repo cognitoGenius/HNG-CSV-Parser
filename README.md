@@ -2,7 +2,7 @@
 
 This is a CSV parser for the HNG internship
 
-The purpose of this simple script is to take in a CSV file which follows a specified format and output a CHIP---0007 compatible json for each entry.
+The purpose of this simple script is to take in a CSV file which follows a specified format and output a CHIP-0007 compatible json for each entry. Here is an example json https://github.com/Chia-Network/chips/blob/main/assets/chip-0007/example.json
 
 it also creates a new CSV file named 'final.output.csv'. This new files contains a new column which contains a sha256 hash of the json of each entry
 
